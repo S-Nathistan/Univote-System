@@ -1,6 +1,6 @@
 # Univote Student Voting System
 
-Welcome to Univote, a comprehensive student voting system designed to streamline administrative tasks and enhance the voting experience. This guide will help you set up both the frontend and backend components of the project.
+Welcome to **Univote**, a comprehensive university student voting system designed to streamline administrative tasks and enhance the voting experience. This guide will help you set up both the frontend and backend components of the project.
 
 ## Table of Contents
 
@@ -13,61 +13,84 @@ Welcome to Univote, a comprehensive student voting system designed to streamline
    - [Frontend](#frontend-1)
    - [Backend](#backend-1)
 
+---
+
 ## Introduction
 
 Univote is built with a modern tech stack:
 - **Frontend:** React with Vite
-- **Backend:** Laravel
+- **Backend:** Laravel (PHP >= 8.2)
+- **Database:** PostgreSQL
 
-This project enhancing student voting system in university student elections.
+This project enhances the student voting experience in university elections.
+
+---
 
 ## Prerequisites
 
 Ensure you have the following installed on your machine:
 
-- **Node.js** (for the frontend)
+- **Node.js** (v18 or above)
 - **npm** or **yarn** (for managing frontend packages)
-- **PHP** (>= 8.2) (for the backend)
+- **PHP** (>= 8.2)
 - **Composer** (for managing backend dependencies)
-- **XAMPP** or another compatible software
+- **PostgreSQL** (running locally on port `5432`)
+
+---
 
 ## Setup Instructions
 
-**Clone the Repository**
+### Clone the Repository
 
-   ```bash
-   git clone https://github.com/Thizh/univote.git
-   ```
+```bash
+git clone https://github.com/S-Nathistan/Univote-system.git
+cd Univote-system
+```
+
+---
 
 ### Frontend
 
-   ```bash
-   cd univote_frontend
-   ```
+```bash
+cd univote_frontend
+```
 
 1. **Install Dependencies**
 
    ```bash
    npm install
-   #or
-   yarn install
    ```
 
-2. **Run the Development Server**
+2. **Configure Environment**
+
+   Copy the `.env.example` file to `.env` and update if needed:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   Default values in `.env`:
+
+   ```env
+   VITE_BASE_URL=http://localhost:8000
+   VITE_SECRET_KEY=your_secret_key
+   ```
+
+3. **Run the Development Server**
 
    ```bash
    npm run dev
-   #or
-   yarn dev
    ```
 
-   The frontend should now be accessible at http://localhost:3000.
+   The frontend will be accessible at **http://localhost:5173**
+
+---
 
 ### Backend
 
-  ```bash
-  cd univote_backend
-  ```
+```bash
+cd univote_backend
+```
 
 1. **Install Dependencies**
 
@@ -75,23 +98,42 @@ Ensure you have the following installed on your machine:
    composer install
    ```
 
-2. **Configuration**
+2. **Configure Environment**
 
-   Copy the .env.example file to .env and update the database and other configurations.
+   Copy the `.env.example` file to `.env`:
 
    ```bash
    cp .env.example .env
    ```
 
-3. **Start Database system**
-   
-   Ensure that your database system (MySQL) is running. You can start MySQL via XAMPP or another compatible software.
+   Update the following in `.env`:
 
-4. **Generate Application Key**
+   ```env
+   APP_URL=http://localhost:8000
+
+   DB_CONNECTION=pgsql
+   DB_HOST=127.0.0.1
+   DB_PORT=5432
+   DB_DATABASE=univote
+   DB_USERNAME=postgres
+   DB_PASSWORD=your_password
+
+   SANCTUM_STATEFUL_DOMAINS=localhost:5173
+   SESSION_DOMAIN=localhost
+
+   SECRET_KEY=your_secret_key
+   ```
+
+3. **Generate Application Key**
 
    ```bash
    php artisan key:generate
    ```
+
+4. **Start PostgreSQL**
+
+   Ensure PostgreSQL is running on port `5432` and the `univote` database exists.
+
 5. **Run Migrations**
 
    ```bash
@@ -104,28 +146,39 @@ Ensure you have the following installed on your machine:
    php artisan serve
    ```
 
-   The backend should now be accessible at http://localhost:8000.
+   The backend will be accessible at **http://localhost:8000**
 
+---
 
 ## Running The Project
 
+> ⚠️ **Both frontend and backend must be running simultaneously for full functionality.**
+
 ### Frontend
 
-  To run the frontend in development mode, use
-
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   ```
+```bash
+cd univote_frontend
+npm run dev
+```
 
 ### Backend
 
-  To run the backend in development mode, use:
+```bash
+cd univote_backend
+php artisan serve
+```
 
-  ```bash
-  php artisan serve
-  ```
+---
 
-Ensure that both the frontend and backend are running for full functionality of the application.  
-GOOD LUCK!
+## Tech Stack
+
+| Layer     | Technology         |
+|-----------|--------------------|
+| Frontend  | React + Vite       |
+| Backend   | Laravel (PHP 8.2+) |
+| Database  | PostgreSQL         |
+| Auth      | Laravel Sanctum    |
+
+---
+
+GOOD LUCK! 🎉
